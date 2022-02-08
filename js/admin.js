@@ -57,8 +57,12 @@ methods:{
       productModal.show();
       this.isNew = true;
     }else if(status === 'edit'){
-      // 這裡也可以做深拷貝
-      this.temp = {...product}
+      // 深拷貝
+      this.temp = JSON.parse(JSON.stringify(product)); 
+      //如果 this.temp.imagesUrl 不存在 
+      if (!this.temp.imagesUrl){
+        this.temp.imagesUrl=[];
+      }
       productModal.show();
       this.isNew = false;
     }else if (status === 'delete'){
@@ -101,7 +105,6 @@ methods:{
 },
 //生命週期
 mounted(){
-  this.products = products;
   this.checkLogin();
 
   productModal = new bootstrap.Modal(document.getElementById('productModal'), {
